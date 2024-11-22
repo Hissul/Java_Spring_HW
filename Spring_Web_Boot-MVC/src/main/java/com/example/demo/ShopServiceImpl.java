@@ -15,22 +15,7 @@ public class ShopServiceImpl implements ShopService{
 	@Autowired
 	private ProductRepository productRepository;
 	
-	@Autowired
-	private CategoryRepository categoryRepository;
 	
-	@Autowired
-	private OrderRepository orderRepository;	
-	
-	@Autowired
-	private ProductOrderRepository productOrderRepository;
-
-	@Override
-	public Category findCategoryByName(String name) {
-		
-		return categoryRepository.findByName(name);
-		//return null;
-	}
-
 	@Override
 	public List<Product> findProductByName(String name) {
 		
@@ -46,12 +31,26 @@ public class ShopServiceImpl implements ShopService{
 		//return null;
 	}
 
-	@Override
-	public Order FindOrderByOrderNumber(Long number) {
-		
-		return orderRepository.findByOrderNumber(number);
-		//return null;
+
+	public List<Product> findAll(){
+		return (List<Product>) productRepository.findAll();
 	}
-	
+
+	@Override
+	public void saveToDB(String name, Double prise) {
+		Product product = new Product(name, prise);
+		productRepository.save(product);
+	}
+
+	@Override
+	public void saveToDB(Product product) {
+		productRepository.save(product);
+	}
+
+	@Override
+	public List<Product> getAllProducts() {
+		
+		return (List<Product>) productRepository.findAll();
+	}
 
 }

@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	   <title>Заголовок</title>
+	   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	   <link rel="stylesheet" th:href="@{/style.css}" type="text/css" />
+	</head>
+	
+	<body>
+	
+	   <h1 th:text="Корзина" ></h1>
+	   
+	  
+	   <form action="#" th:action="@{/addOnePurchase}" th:object="${myPurchase}" method='POST'>
+	   
+			<input th:name="name"> <span>Purchase</span>
+		  	<br/>
+		   
+			<input th:prise="prise"> <span>Price</span>
+			<br/>
+		    
+		   <input type='submit' value='Add Pushase' />		   
+		   
+	   </form>
+	   
+	</body>
+</html>

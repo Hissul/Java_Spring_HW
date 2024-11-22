@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	   <title>Заголовок</title>
+	   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	   <link rel="stylesheet" th:href="@{/style.css}" type="text/css" />
+	</head>
+	
+	<body>
+		
+		<div>
+			<h2 th:text="|Purchase List ${my_param}|" />
+		</div>
+		
+		<ul th:each="product : ${products}">
+			<li th:text="${product}"/>
+		</ul>	
+		
+		<a href="/main" >Main Page</a>
+	   
+	</body>
+</html>
