@@ -9,4 +9,6 @@ public interface ShopService {
 	void saveToDB(String name, Double prise);
 	void saveToDB(Product product);
 	List<Product> getAllProducts();
+	
+	void saveUserToDB(UserDTO user);
 }

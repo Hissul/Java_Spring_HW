@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+	   <title>Registrato</title>
+	   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	   <link rel="stylesheet" th:href="@{/style.css}" type="text/css" />
+	</head>
+	
+	<body>
+	
+	   <h1 th:text="Registration" ></h1>
+	   
+	  
+	   <form action="#" th:action="@{/postRegistr}" th:object="${myUser}" method='POST'>
+	   
+			<input th:field="*{firstName}"> <span>Name</span>
+		  	<br/>
+		  	
+		  	<input th:field="*{lastName}"> <span>Surname</span>
+		  	<br/>
+		   
+			<input th:field="*{password}"/> <span>Password</span>
+		  	<br/>
+		  	
+		  	<input  th:name="email"> <span>Email</span>
+		  	<br/>
+		    
+		   <input type='submit' value='Registration' />		   
+		   
+	   </form>
+	   
+	</body>
+</html>
