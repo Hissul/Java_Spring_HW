@@ -11,4 +11,5 @@ public interface ShopService {
 	List<Product> getAllProducts();
 	
 	void saveUserToDB(UserDTO user);
+	UserDTO findByEmail(String email);
 }

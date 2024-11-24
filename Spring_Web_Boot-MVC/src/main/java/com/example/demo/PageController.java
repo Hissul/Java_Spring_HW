@@ -33,6 +33,7 @@ public class PageController {
     public String main() {
 		return "index";
 	}
+	
 
 	
 	
@@ -62,8 +63,43 @@ public class PageController {
 	public String createNewUser(@ModelAttribute UserDTO newUser, Model model) {
 		//model.addAttribute("myUser", newUser);
 		servise.saveUserToDB(newUser);
-		System.out.println(newUser);
+		
 		return "index";
 	}
 
+	@GetMapping("/login")
+	public String login( @RequestParam(name="my_param", required=false, defaultValue="absent") String from_url, Model model) {
+//		model.addAttribute("my_param", from_url);
+//	    model.addAttribute("myUser", new UserDTO("q@q.ru"));		
+		return "login";
+	}
+	
+	@PostMapping("/postLogin")
+	public String postLogin(@ModelAttribute UserDTO newUser, Model model) {
+		
+		System.out.println(newUser);
+		
+		UserDTO user = servise.findByEmail(newUser.getEmail());
+		
+		newUser.setFirstName(" ");
+		newUser.setLastName(" ");
+		
+		System.out.println(user);
+		
+		if(user == null) {
+			System.out.println("NULL");
+			model.addAttribute("myUser", newUser);
+			return "registration";
+		}
+		
+		if(newUser.getPassword().equals(user.getPassword())) {
+			System.out.println("MATCH");
+			return "index";
+		}
+		else{
+			System.out.println("NOT MATCH");
+			return "login";
+		}	
+		
+	}
 }

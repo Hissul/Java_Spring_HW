@@ -23,12 +23,18 @@ public class UserDTO implements Serializable{
 	private String email;
 	
 	
+
+
 	public UserDTO() {}
 	
 	public UserDTO(String firstName, String lastName, String password, String email) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
+		this.email = email;
+	}
+	
+	public UserDTO(String email) {	
 		this.email = email;
 	}
 

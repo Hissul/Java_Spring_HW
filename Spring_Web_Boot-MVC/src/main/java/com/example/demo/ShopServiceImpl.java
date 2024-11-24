@@ -61,4 +61,9 @@ public class ShopServiceImpl implements ShopService{
 		userDTORepositiry.save(user);		
 	}
 
+	@Override
+	public UserDTO findByEmail(String email) {		
+		return userDTORepositiry.findOneByEmail(email);
+	}
+
 }
