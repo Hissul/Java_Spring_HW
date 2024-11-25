@@ -1,15 +1,18 @@
 package com.example.demo;
 
 import java.io.Serializable;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="users")
-public class UserDTO implements Serializable{	
+@Table(name="consumers")
+public class Consumer implements Serializable{	
 
 	private static final long serialVersionUID = 1L;
 
@@ -22,19 +25,23 @@ public class UserDTO implements Serializable{
 	private String password;	
 	private String email;
 	
+//	@OneToMany
+//	@JoinColumn(name="category_id")
+//	private List<Product> products;
+	
 	
 
 
-	public UserDTO() {}
+	public Consumer() {}
 	
-	public UserDTO(String firstName, String lastName, String password, String email) {
+	public Consumer(String firstName, String lastName, String password, String email) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
 		this.email = email;
 	}
 	
-	public UserDTO(String email) {	
+	public Consumer(String email) {	
 		this.email = email;
 	}
 

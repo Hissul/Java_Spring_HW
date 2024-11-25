@@ -16,18 +16,18 @@ public class ShopServiceImpl implements ShopService{
 	private ProductRepository productRepository;
 	
 	@Autowired
-	private UserDTORepositiry userDTORepositiry;
+	private ConsumerRepositiry userDTORepositiry;
 	
 	
 	@Override
-	public List<Product> findProductByName(String name) {
+	public List<Product> getProductByName(String name) {
 		
 		return productRepository.findByName(name);
 		//return null;
 	}
 
 	@Override
-	public List<Product> findProductByPrise(Double prise) {
+	public List<Product> getProductByPrise(Double prise) {
 		
 		return productRepository.findByPrise(prise);
 		
@@ -40,8 +40,8 @@ public class ShopServiceImpl implements ShopService{
 	}
 
 	@Override
-	public void saveToDB(String name, Double prise) {
-		Product product = new Product(name, prise);
+	public void saveToDB(String name, Double prise, Consumer consumer) {
+		Product product = new Product(name, prise, consumer);
 		productRepository.save(product);
 	}
 
@@ -57,13 +57,19 @@ public class ShopServiceImpl implements ShopService{
 	}
 
 	@Override
-	public void saveUserToDB(UserDTO user) {
+	public void saveUserToDB(Consumer user) {
 		userDTORepositiry.save(user);		
 	}
 
 	@Override
-	public UserDTO findByEmail(String email) {		
+	public Consumer findByEmail(String email) {		
 		return userDTORepositiry.findOneByEmail(email);
+	}
+
+	@Override
+	public List<Product> getProductByConsumerEmail(String email) {
+		
+		return productRepository.findDistinctProductByConsumer_EmailContaining(email);
 	}
 
 }

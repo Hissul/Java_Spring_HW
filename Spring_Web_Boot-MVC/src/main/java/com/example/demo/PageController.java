@@ -17,52 +17,62 @@ public class PageController {
 	@Autowired
 	private ShopService servise;
 	
+	Consumer consumer = null;
+	
+	
 	@GetMapping("/addPurchase")
     public String add() {
+		
+		if(consumer ==  null) {
+			return "login";
+		}
+		
 		return "addPurchase";
 	}
 	
-	@GetMapping("/allPurchases")
-    public String all(@RequestParam(name="my_param",required=false,defaultValue="absent") String from_url,Model model) {
-		model.addAttribute("my_param", from_url);
-	    model.addAttribute("products", servise.getAllProducts());
-		return "allPurchases";
-	}
-	
-	@GetMapping("/main")
-    public String main() {
-		return "index";
-	}
-	
-
-	
-	
 	@PostMapping("/addOnePurchase")
-	public String newPurchase(@ModelAttribute Product newBuy,Model model) {
+	public String newPurchase(@ModelAttribute Product newBuy,Model model) {	
+		
+		newBuy.setConsumer(consumer);
 		
 		model.addAttribute("myPurchase", newBuy);
 		
-		servise.saveToDB(newBuy);
-		//servise.saveToDB(newBuy.getName(), newBuy.getPrise());
+		servise.saveToDB(newBuy);		
 		
 		System.out.println(newBuy);
 		return "index";
 	}
 	
+	
+	@GetMapping("/allPurchases")
+    public String all(@RequestParam(name="my_param",required=false,defaultValue="absent") String from_url,Model model) {
+		
+		if(consumer ==  null) {
+			return "login";
+		}
+		
+		model.addAttribute("my_param", from_url);
+	    model.addAttribute("products", servise.getProductByConsumerEmail(consumer.getEmail()));
+		return "allPurchases";
+	}
+
+	
 	@GetMapping("/registration")
 	public String registr(WebRequest request,Model model) {
 
-		UserDTO userDto = new UserDTO();
-		model.addAttribute("myUser", userDto);
+		Consumer userDto = new Consumer();
+		model.addAttribute("myUser", userDto);	
 		 
 		return "registration";
 	}
 	
 	
 	@PostMapping("/postRegistr")
-	public String createNewUser(@ModelAttribute UserDTO newUser, Model model) {
+	public String createNewUser(@ModelAttribute Consumer newUser, Model model) {
 		//model.addAttribute("myUser", newUser);
 		servise.saveUserToDB(newUser);
+		
+		consumer = newUser;
 		
 		return "index";
 	}
@@ -75,11 +85,11 @@ public class PageController {
 	}
 	
 	@PostMapping("/postLogin")
-	public String postLogin(@ModelAttribute UserDTO newUser, Model model) {
+	public String postLogin(@ModelAttribute Consumer newUser, Model model) {
 		
 		System.out.println(newUser);
 		
-		UserDTO user = servise.findByEmail(newUser.getEmail());
+		Consumer user = servise.findByEmail(newUser.getEmail());
 		
 		newUser.setFirstName(" ");
 		newUser.setLastName(" ");
@@ -94,12 +104,26 @@ public class PageController {
 		
 		if(newUser.getPassword().equals(user.getPassword())) {
 			System.out.println("MATCH");
+			consumer = user;
 			return "index";
 		}
 		else{
 			System.out.println("NOT MATCH");
 			return "login";
-		}	
-		
+		}			
 	}
+	
+	
+	@GetMapping("/logout")
+	public String logout() {
+		consumer = null;
+		return "index";
+	}
+	
+	@GetMapping("/main")
+	public String index() {
+		return "index";
+	}
+	
+	
 }

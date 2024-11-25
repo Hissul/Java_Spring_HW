@@ -1,14 +1,14 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-	   <title>Registrato</title>
+	   <title>Login</title>
 	   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	   <link rel="stylesheet" th:href="@{/style.css}" type="text/css" />
 	</head>
 	
 	<body>	
 	
-	   <h1 th:text="|Registration ${my_param}|" ></h1>
+	   <h1 th:text="|LOGIN ${my_param}|" ></h1>
 	   
 	  
 	   <form action="#" th:action="@{/postLogin}" th:object="${myUser}" method='POST'>
@@ -19,7 +19,7 @@
 			<input th:name="password"/> <span>Password</span>
 		  	<br/>
 		    
-		   <input type='submit' value='Registration' />		   
+		   <input type='submit' value='Login' />		   
 		   
 	   </form>
 	   
