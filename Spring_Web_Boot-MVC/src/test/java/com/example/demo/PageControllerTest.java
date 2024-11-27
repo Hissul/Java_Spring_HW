@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -34,6 +35,15 @@ public class PageControllerTest {
 	 
 	  assertThat(consumerRepositiry.findOneByEmail("s@s.ru")).isNotNull();
 	  
+	}
+	
+	@Test
+	void addOnePurchase() throws Exception {
+		//Consumer consumer = new Consumer("W", "W", "123", "d@d.ru");
+		this.mockMvc.perform(post("/addOnePurchase").with(user("admin").password("pass").roles("USER","ADMIN"))
+				.param("name", "bbbb")
+				.param("prise", String.valueOf(123.123)))
+		.andExpect(status().isOk());
 	}
 
 }
