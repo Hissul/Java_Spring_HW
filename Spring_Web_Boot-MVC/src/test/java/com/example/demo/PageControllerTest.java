@@ -1,7 +1,11 @@
 package com.example.demo;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.hibernate.mapping.List;
@@ -35,5 +39,14 @@ public class PageControllerTest {
 	  assertThat(consumerRepositiry.findOneByEmail("s@s.ru")).isNotNull();
 	  
 	}
+	
+	@Test
+	void shouldReturnDefaultMessage() throws Exception {
+		mockMvc.perform(get("/test_url")
+				   ).andDo(print()
+				   ).andExpect(status().isOk()
+				   ).andExpect(content().string(containsString("Test Response String")));
+	}
+
 
 }

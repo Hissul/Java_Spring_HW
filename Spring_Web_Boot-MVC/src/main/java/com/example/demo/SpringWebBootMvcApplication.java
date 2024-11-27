@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class SpringWebBootMvcApplication {
 	
-	@Autowired
-	ShopService ShopServise;
+//	@Autowired
+//	ShopService ShopServise;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringWebBootMvcApplication.class, args);

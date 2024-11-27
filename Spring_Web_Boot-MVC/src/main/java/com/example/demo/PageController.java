@@ -74,7 +74,7 @@ public class PageController {
 		
 		consumer = newUser;
 		
-		return "index";
+		return "login";
 	}
 
 	@GetMapping("/login")
@@ -124,6 +124,12 @@ public class PageController {
 	public String index() {
 		return "index";
 	}
+	
+	
+	   @GetMapping("/test_url")
+	    public String getTestResponse() {
+	        return "Test Response String";
+	    }
 	
 	
 }
