@@ -37,7 +37,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http, CustomUserDetailsService customUserDetailsService) throws Exception {
         http
             .authorizeHttpRequests((authz) -> authz
-            	.requestMatchers("/registration", "/login", "/css/**", "/js/**").permitAll()
+            	.requestMatchers("/registration", "/login", "/postRegistr", "/static/**", "/js/**").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
@@ -45,7 +45,7 @@ public class SecurityConfig {
                     .loginProcessingUrl("/login")  // URL to submit the login form
                     .usernameParameter("email")    // Parameter name for username
                     .passwordParameter("password") // Parameter name for password
-                    .defaultSuccessUrl("/", true)  // Redirect after successful login
+                    .defaultSuccessUrl("/main", true)  // Redirect after successful login
                     .failureUrl("/login?error=true") // Redirect after failed login
                 )
             .logout(Customizer.withDefaults())

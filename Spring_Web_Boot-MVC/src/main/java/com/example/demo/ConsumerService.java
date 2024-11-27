@@ -16,6 +16,7 @@ public class ConsumerService {
 	private ConsumerRepositiry repo;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+
 	
 	public Consumer addUser(Consumer user)
 	{
