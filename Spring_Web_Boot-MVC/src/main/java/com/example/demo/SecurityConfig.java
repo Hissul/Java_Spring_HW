@@ -37,7 +37,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http, CustomUserDetailsService customUserDetailsService) throws Exception {
         http
             .authorizeHttpRequests((authz) -> authz
-            	.requestMatchers("/registration", "/login", "/postRegistr","/static/**" , "/css/**").permitAll()
+            	.requestMatchers("/registration", "/login", "/postRegistr", "/main", "/static/**" , "/css/**").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form

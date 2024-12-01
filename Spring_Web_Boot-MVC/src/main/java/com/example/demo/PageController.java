@@ -11,7 +11,6 @@ import org.springframework.web.context.request.WebRequest;
 
 
 @Controller
-//@RestController
 public class PageController {
 	
 	@Autowired
@@ -19,23 +18,25 @@ public class PageController {
 	@Autowired
 	private ConsumerService consumerService;
 	
-	Consumer consumer = null;
+	//Consumer consumer = null;
 	
 	
 	@GetMapping("/addPurchase")
     public String add() {
 		
-		if(consumer ==  null) {
-			return "login";
-		}
+//		if(consumer ==  null) {
+//			return "login";
+//		}
 		
 		return "addPurchase";
 	}
 	
+	
+	
 	@PostMapping("/addOnePurchase")
 	public String newPurchase(@ModelAttribute Product newBuy,Model model) {	
 		
-		newBuy.setConsumer(consumer);
+		newBuy.setConsumer(consumerService.cons);
 		
 		model.addAttribute("myPurchase", newBuy);
 		
@@ -46,18 +47,20 @@ public class PageController {
 	}
 	
 	
+	
 	@GetMapping("/allPurchases")
     public String all(@RequestParam(name="my_param",required=false,defaultValue="absent") String from_url,Model model) {
 		
-		if(consumer ==  null) {
-			return "login";
-		}
+//		if(consumer ==  null) {
+//			return "login";
+//		}
 		
 		model.addAttribute("my_param", from_url);
-	    model.addAttribute("products", servise.getProductByConsumerEmail(consumer.getEmail()));
+	    model.addAttribute("products", servise.getProductByConsumerEmail(consumerService.cons.getEmail()));
 		return "allPurchases";
 	}
 
+	
 	
 	@GetMapping("/registration")
 	public String registr(WebRequest request,Model model) {
@@ -69,16 +72,19 @@ public class PageController {
 	}
 	
 	
+	
 	@PostMapping("/postRegistr")
 	public String createNewUser(@ModelAttribute Consumer newUser, Model model) {
 		//model.addAttribute("myUser", newUser);
 		consumerService.addUser(newUser);
 		
-		consumer = newUser;
+		//consumer = newUser;
 		
 		return "login";
 	}
 
+	
+	
 	@GetMapping("/login")
 	public String login( @RequestParam(name="my_param", required=false, defaultValue="absent") String from_url, Model model) {
 //		model.addAttribute("my_param", from_url);
@@ -86,42 +92,16 @@ public class PageController {
 		model.addAttribute("myUser", new Consumer());
 		return "login";
 	}
-	
-//	@PostMapping("/postLogin")
-//	public String postLogin(@ModelAttribute Consumer newUser, Model model) {
-//		
-//		System.out.println(newUser);
-//		
-//		Consumer user = servise.findByEmail(newUser.getEmail());
-//		
-//		newUser.setFirstName(" ");
-//		newUser.setLastName(" ");
-//		
-//		System.out.println(user);
-//		
-//		if(user == null) {
-//			System.out.println("NULL");
-//			model.addAttribute("myUser", newUser);
-//			return "registration";
-//		}
-//		
-//		if(newUser.getPassword().equals(user.getPassword())) {
-//			System.out.println("MATCH");
-//			consumer = user;
-//			return "index";
-//		}
-//		else{
-//			System.out.println("NOT MATCH");
-//			return "login";
-//		}			
-//	}
+
 	
 	
 	@GetMapping("/logout")
 	public String logout() {
-		consumer = null;
+		consumerService.cons = null;
 		return "index";
 	}
+	
+	
 	
 	@GetMapping("/main")
 	public String index() {
@@ -129,10 +109,11 @@ public class PageController {
 	}
 	
 	
-	   @GetMapping("/test_url")
-	    public String getTestResponse() {
-	        return "Test Response String";
-	    }
+	
+    @GetMapping("/test_url")
+    public String getTestResponse() {
+        return "Test Response String";
+    }
 	
 	
 }

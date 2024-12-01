@@ -16,6 +16,8 @@ public class ConsumerService {
 	private ConsumerRepositiry repo;
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	public Consumer cons;
 
 	
 	public Consumer addUser(Consumer user)
@@ -44,7 +46,8 @@ public class ConsumerService {
 	
 	public Consumer findByEmail(String email)
 	{
-		return repo.findOneByEmail(email);
+		cons = repo.findOneByEmail(email);
+		return cons;
 	}
 	
 	public CompletableFuture<Consumer> findByEmailAsync(String email)
