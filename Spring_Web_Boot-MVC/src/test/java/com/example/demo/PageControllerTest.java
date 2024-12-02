@@ -48,5 +48,13 @@ public class PageControllerTest {
 				   ).andExpect(content().string(containsString("Test Response String")));
 	}
 
+	@Test
+	void addOnePurchase() throws Exception {
+		
+		this.mockMvc.perform(post("/addOnePurchase").with(user("admin").password("pass").roles("USER","ADMIN"))
+				.param("name", "bbbb")
+				.param("prise", String.valueOf(123.123)))
+		.andExpect(status().isOk());
+	}
 
 }
