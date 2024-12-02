@@ -2,6 +2,7 @@ package com.example.demo;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 import org.hibernate.annotations.ColumnDefault;
 
@@ -31,7 +32,7 @@ public class Product implements Serializable {
 	private Double prise;
 	
 
-	@ManyToOne
+	@ManyToOne(optional = true)
 	@JoinColumn(name="consumer_id")
 	private Consumer consumer;
 	
@@ -90,6 +91,7 @@ public class Product implements Serializable {
 
 	public void setConsumer(Consumer consumer) {
 		this.consumer = consumer;
-	}	
+	}
+
 
 }

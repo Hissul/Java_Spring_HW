@@ -36,7 +36,7 @@ public class PageController {
 	@PostMapping("/addOnePurchase")
 	public String newPurchase(@ModelAttribute Product newBuy,Model model) {	
 		
-		newBuy.setConsumer(consumerService.cons);
+		newBuy.setConsumer(consumerService.consumer);
 		
 		model.addAttribute("myPurchase", newBuy);
 		
@@ -56,7 +56,7 @@ public class PageController {
 //		}
 		
 		model.addAttribute("my_param", from_url);
-	    model.addAttribute("products", servise.getProductByConsumerEmail(consumerService.cons.getEmail()));
+	    model.addAttribute("products", servise.getProductByConsumerEmail(consumerService.consumer.getEmail()));
 		return "allPurchases";
 	}
 
@@ -92,12 +92,42 @@ public class PageController {
 		model.addAttribute("myUser", new Consumer());
 		return "login";
 	}
-
+	
+	
+	
+//	@PostMapping("/postLogin")
+//	public String postLogin(@ModelAttribute Consumer newUser, Model model) {
+//		
+//		System.out.println(newUser);
+//		
+//		Consumer user = servise.findByEmail(newUser.getEmail());
+//		
+//		newUser.setFirstName(" ");
+//		newUser.setLastName(" ");
+//		
+//		System.out.println(user);
+//		
+//		if(user == null) {
+//			System.out.println("NULL");
+//			model.addAttribute("myUser", newUser);
+//			return "registration";
+//		}
+//		
+//		if(newUser.getPassword().equals(user.getPassword())) {
+//			System.out.println("MATCH");
+//			consumer = user;
+//			return "index";
+//		}
+//		else{
+//			System.out.println("NOT MATCH");
+//			return "login";
+//		}			
+//	}
 	
 	
 	@GetMapping("/logout")
 	public String logout() {
-		consumerService.cons = null;
+		consumerService.consumer = null;
 		return "index";
 	}
 	

@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.Optional;
+
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,16 +24,16 @@ public class CustomUserDetailsService implements UserDetailsService {
 	    @Override
 	    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 	        // Fetch user from DB
-	    		com.example.demo.Consumer user = consumerService.findByEmail(username);
-	        
+	    		Optional<Consumer> user = Optional.ofNullable(consumerService.findByEmail(username));
+	       
 	        if (user == null) {
 	            throw new UsernameNotFoundException("User not found with email: " + username);
 	        }
 
 	        // Create UserDetails object
 	        return User.builder()
-	                   .username(user.getEmail()) // Assume 'email' is the username
-	                   .password(user.getPassword()) // Ensure passwords are stored encrypted
+	                   .username(user.get().getEmail()) // Assume 'email' is the username
+	                   .password(user.get().getPassword()) // Ensure passwords are stored encrypted
 	                   .build();
 	    }
 }
